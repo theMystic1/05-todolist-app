@@ -18,24 +18,28 @@ let todos = [
 // Render todos
 function renderTodos(todoList) {
   todoContainer.innerHTML = ""; // Clear existing todos
-  let markup = "";
-  todoList.forEach((todo) => {
-    markup += `
-      <li class="list_thing" data-id="${todo.id}">
-        <button class="btn todo-check-btn" data-id="${todo.id}">
-          <ion-icon name="stop-outline" class="${
-            todo.completed ? "hidden" : ""
-          }"></ion-icon>
-          <ion-icon class="doneTodo ${
-            todo.completed ? "" : "hidden"
-          }" name="checkbox"></ion-icon>
-        </button>
-        <span class="todoMsg" data-id="${todo.id}">${todo.todo}</span>
-        <p class="display-msg">${todo.completed ? "completed!!!" : ""}</p>
-        <button class="btn del-btn " data-id="${todo.id}">&times;</button>
-      </li>`;
-  });
-  todoContainer.innerHTML = markup;
+  if (todoList.length === 0) {
+    todoContainer.innerHTML = `<p class='no-todo'>Kindly enter your todo Items</p>`;
+  } else {
+    let markup = "";
+    todoList.forEach((todo) => {
+      markup += `
+        <li class="list_thing" data-id="${todo.id}">
+          <button class="btn todo-check-btn" data-id="${todo.id}">
+            <ion-icon name="stop-outline" class="${
+              todo.completed ? "hidden" : ""
+            }"></ion-icon>
+            <ion-icon class="doneTodo ${
+              todo.completed ? "" : "hidden"
+            }" name="checkbox"></ion-icon>
+          </button>
+          <span class="todoMsg" data-id="${todo.id}">${todo.todo}</span>
+          <p class="display-msg">${todo.completed ? "completed!!!" : ""}</p>
+          <button class="btn del-btn" data-id="${todo.id}">&times;</button>
+        </li>`;
+    });
+    todoContainer.innerHTML = markup;
+  }
   todoCount.textContent = todoList.length;
 }
 
@@ -78,6 +82,18 @@ form.addEventListener("submit", function (e) {
     renderTodos(todos);
     inputField.value = "";
   }
+});
+
+todoContainer.addEventListener("mouseover", function (e) {
+  const listItem = e.target.closest(".list_thing");
+  if (!listItem) return;
+  listItem.querySelector(".del-btn").classList.remove("hidden");
+});
+
+todoContainer.addEventListener("mouseout", function (e) {
+  const listItem = e.target.closest(".list_thing");
+  if (!listItem) return;
+  listItem.querySelector(".del-btn").classList.add("hidden");
 });
 
 todoContainer.addEventListener("click", function (e) {
