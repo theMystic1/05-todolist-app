@@ -32,7 +32,7 @@ function renderTodos(todoList) {
         </button>
         <span class="todoMsg" data-id="${todo.id}">${todo.todo}</span>
         <p class="display-msg">${todo.completed ? "completed!!!" : ""}</p>
-        <button class="btn del-btn hidden" data-id="${todo.id}">&times;</button>
+        <button class="btn del-btn " data-id="${todo.id}">&times;</button>
       </li>`;
   });
   todoContainer.innerHTML = markup;
@@ -78,18 +78,6 @@ form.addEventListener("submit", function (e) {
     renderTodos(todos);
     inputField.value = "";
   }
-});
-
-todoContainer.addEventListener("mouseover", function (e) {
-  const listItem = e.target.closest(".list_thing");
-  if (!listItem) return;
-  listItem.querySelector(".del-btn").classList.remove("hidden");
-});
-
-todoContainer.addEventListener("mouseout", function (e) {
-  const listItem = e.target.closest(".list_thing");
-  if (!listItem) return;
-  listItem.querySelector(".del-btn").classList.add("hidden");
 });
 
 todoContainer.addEventListener("click", function (e) {

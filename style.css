@@ -139,6 +139,9 @@ html {
 .del-btn {
   margin-left: 4rem;
   background-color: #f80505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   height: 2rem;
   width: 2rem;
